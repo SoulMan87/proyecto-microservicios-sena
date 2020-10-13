@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/microservicio-eureka/microservicio-eureka.iml" filepath="$PROJECT_DIR$/microservicio-eureka/microservicio-eureka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/microservicios-alumnos/microservicios-alumnos.iml" filepath="$PROJECT_DIR$/microservicios-alumnos/microservicios-alumnos.iml" />
+    </modules>
+  </component>
+</project>
