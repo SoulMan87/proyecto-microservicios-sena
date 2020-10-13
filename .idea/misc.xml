@@ -5,10 +5,11 @@
       <list>
         <option value="$PROJECT_DIR$/microservicios-alumnos/pom.xml" />
         <option value="$PROJECT_DIR$/microservicio-eureka/pom.xml" />
+        <option value="$PROJECT_DIR$/microservicios-zuul/pom.xml" />
       </list>
     </option>
   </component>
-  <component name="ProjectRootManager">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_14" default="false" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

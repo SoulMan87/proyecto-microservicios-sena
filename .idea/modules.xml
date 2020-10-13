@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/microservicio-eureka/microservicio-eureka.iml" filepath="$PROJECT_DIR$/microservicio-eureka/microservicio-eureka.iml" />
       <module fileurl="file://$PROJECT_DIR$/microservicios-alumnos/microservicios-alumnos.iml" filepath="$PROJECT_DIR$/microservicios-alumnos/microservicios-alumnos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/microservicios-zuul/microservicios-zuul.iml" filepath="$PROJECT_DIR$/microservicios-zuul/microservicios-zuul.iml" />
     </modules>
   </component>
 </project>
