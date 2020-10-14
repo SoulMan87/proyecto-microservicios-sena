@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public interface CommonsService<E> {
+public interface CommonService<E> {
 
     Iterable<E> findAllService();
 

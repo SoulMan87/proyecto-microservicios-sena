@@ -6,6 +6,9 @@
         <option value="$PROJECT_DIR$/microservicios-alumnos/pom.xml" />
         <option value="$PROJECT_DIR$/microservicio-eureka/pom.xml" />
         <option value="$PROJECT_DIR$/microservicios-zuul/pom.xml" />
+        <option value="$PROJECT_DIR$/commons-microservicios/pom.xml" />
+        <option value="$PROJECT_DIR$/microservicios-cursos/pom.xml" />
+        <option value="$PROJECT_DIR$/microservicios-commons-alumnos/pom.xml" />
       </list>
     </option>
   </component>

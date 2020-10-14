@@ -1,58 +1,44 @@
 package com.soulrebel.microservicios.commons.controllers;
 
 
-import com.soulrebel.microservicios.app.alumnos.models.entity.Alumno;
-import com.soulrebel.microservicios.app.alumnos.models.service.AlumnoService;
-import lombok.AllArgsConstructor;
+import com.soulrebel.microservicios.commons.services.CommonService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@RestController
-@AllArgsConstructor
-public class AlumnoController {
+public class CommonController<E, S extends CommonService<E>> {
 
-    private final AlumnoService service;
+    protected final S service;
+
+    public CommonController(S service) {
+        this.service = service;
+    }
 
     @GetMapping
-    public ResponseEntity<?> listarAlumnos() {
+    public ResponseEntity<?> listar() {
         return ResponseEntity.ok().body(service.findAllService());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> verAlumnos(@PathVariable Long id) {
-        Optional<Alumno> optionalAlumno = service.findByIdService(id);
-        if (optionalAlumno.isEmpty()) {
+    public ResponseEntity<?> ver(@PathVariable Long id) {
+        Optional<E> optionalEntity = service.findByIdService(id);
+        if (optionalEntity.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(optionalAlumno.get());
+        return ResponseEntity.ok(optionalEntity.get());
     }
 
     @PostMapping
-    public ResponseEntity<?> crearAlumno(@RequestBody Alumno alumno) {
-        Alumno alumnoDb = service.saveAlumnoService(alumno);
-        return ResponseEntity.status(HttpStatus.CREATED).body(alumnoDb);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<?> editarAlumnos(@RequestBody Alumno alumno, @PathVariable Long id) {
-        Optional<Alumno> optionalAlumno = service.findByIdService(id);
-        if (optionalAlumno.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        Alumno alumnoDb = optionalAlumno.get();
-        alumno.setNombre(alumno.getNombre());
-        alumno.setApellido(alumno.getApellido());
-        alumno.setEmail(alumno.getEmail());
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.saveAlumnoService(alumnoDb));
+    public ResponseEntity<?> crear(@RequestBody E entity) {
+        E entityDb = service.saveService(entity);
+        return ResponseEntity.status(HttpStatus.CREATED).body(entityDb);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminarAlumos(@PathVariable Long id) {
-        service.deleteAlumnoService(id);
+    public ResponseEntity<?> eliminar(@PathVariable Long id) {
+        service.deleteService(id);
         return ResponseEntity.noContent().build();
     }
 
