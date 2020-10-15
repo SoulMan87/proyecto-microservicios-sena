@@ -6,10 +6,7 @@ import com.soulrebel.microservicios.commons.alumnos.models.entity.Alumno;
 import com.soulrebel.microservicios.commons.controllers.CommonController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -42,8 +39,8 @@ public class CursoController extends CommonController<Curso, CursoService> {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.service.saveService(cursoDb));
     }
 
-    @PutMapping("/{id}/elimina-alumno")
-    public ResponseEntity<?> eliminaAlumno(@RequestBody Alumno alumno, @PathVariable Long id) {
+    @PutMapping("/{id}/eliminar-alumno")
+    public ResponseEntity<?> eliminarAlumno(@RequestBody Alumno alumno, @PathVariable Long id) {
         Optional<Curso> optionalCurso = this.service.findByIdService(id);
         if (optionalCurso.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -52,5 +49,11 @@ public class CursoController extends CommonController<Curso, CursoService> {
 
         cursoDb.removeAlumno(alumno);
         return ResponseEntity.status(HttpStatus.CREATED).body(this.service.saveService(cursoDb));
+    }
+
+    @GetMapping("/alumno/{id}")
+    public ResponseEntity<?> buscarAlumnoId(@PathVariable Long id) {
+        Curso curso = service.findCursoByAlumnosId(id);
+        return ResponseEntity.ok(curso);
     }
 }

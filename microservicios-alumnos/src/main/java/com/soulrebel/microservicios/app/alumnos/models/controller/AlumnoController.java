@@ -31,6 +31,11 @@ public class AlumnoController extends CommonController<Alumno, AlumnoService> {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.saveService(alumnoDb));
     }
 
+    @GetMapping("/filtrar/{term}")
+    public ResponseEntity<?> filtrar(@PathVariable String term) {
+        return ResponseEntity.ok(service.findByNombreOrApellido(term));
+    }
+
 
 }
 

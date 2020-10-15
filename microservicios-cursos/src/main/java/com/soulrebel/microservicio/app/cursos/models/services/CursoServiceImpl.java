@@ -10,4 +10,9 @@ public class CursoServiceImpl extends CommonServiceImpl<Curso, CursoRepository> 
     public CursoServiceImpl(CursoRepository repository) {
         super(repository);
     }
+
+    @Override
+    public Curso findCursoByAlumnosId(Long id) {
+        return repository.findCursoByAlumnosId(id);
+    }
 }
