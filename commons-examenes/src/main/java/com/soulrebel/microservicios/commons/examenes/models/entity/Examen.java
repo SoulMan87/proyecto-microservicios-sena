@@ -1,4 +1,4 @@
-package com.soulrebel.microservicios.app.examenes.models.entity;
+package com.soulrebel.microservicios.commons.examenes.models.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;

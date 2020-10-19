@@ -1,8 +1,8 @@
 package com.soulrebel.microservicios.app.examenes.models.controller;
 
-import com.soulrebel.microservicios.app.examenes.models.entity.Examen;
 import com.soulrebel.microservicios.app.examenes.models.services.ExamenService;
 import com.soulrebel.microservicios.commons.controllers.CommonController;
+import com.soulrebel.microservicios.commons.examenes.models.entity.Examen;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

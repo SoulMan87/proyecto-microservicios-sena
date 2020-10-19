@@ -21,6 +21,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>com.soulrebel.microservicios.commons</groupId>
+			<artifactId>commons-examenes</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>com.soulrebel.microservicios.commons.alumnos</groupId>
 			<artifactId>microservicios-commons-alumnos</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
