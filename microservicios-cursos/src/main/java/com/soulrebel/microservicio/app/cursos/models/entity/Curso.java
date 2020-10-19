@@ -1,6 +1,7 @@
 package com.soulrebel.microservicio.app.cursos.models.entity;
 
 import com.soulrebel.microservicios.commons.alumnos.models.entity.Alumno;
+import com.soulrebel.microservicios.commons.examenes.models.entity.Examen;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,6 +23,9 @@ public class Curso {
     @OneToMany(fetch = FetchType.LAZY)
     private List<Alumno> alumnos;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Examen> examenes;
+
     @Column(name = "create_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createAt;
@@ -31,15 +35,25 @@ public class Curso {
         this.createAt = new Date();
     }
 
-    public Curso(){
+    public Curso() {
         this.alumnos = new ArrayList<>();
+        this.examenes = new ArrayList<>();
     }
 
-    public void addAlumno(Alumno alumno){
+    public void addAlumno(Alumno alumno) {
         this.alumnos.add(alumno);
     }
-    public void removeAlumno(Alumno alumno){
+
+    public void removeAlumno(Alumno alumno) {
         this.alumnos.remove(alumno);
+    }
+
+    public void addExamen(Examen examen) {
+        this.examenes.add(examen);
+    }
+
+    public void removeExamen(Examen examen) {
+        this.examenes.remove(examen);
     }
 
 }
