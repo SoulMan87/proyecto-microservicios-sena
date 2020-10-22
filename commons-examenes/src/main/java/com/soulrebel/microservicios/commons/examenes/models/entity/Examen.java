@@ -29,26 +29,29 @@ public class Examen {
     @OneToMany(mappedBy = "examen", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pregunta> preguntas;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Asignatura asignatura;
+
     @PrePersist
     public void prePersist() {
         this.createAt = new Date();
     }
 
-    public Examen (){
+    public Examen() {
         this.preguntas = new ArrayList<>();
     }
 
-    public void setPreguntas(List<Pregunta> preguntas){
+    public void setPreguntas(List<Pregunta> preguntas) {
         this.preguntas.clear();
         preguntas.forEach(this::addPregunta);
     }
 
-    public void  addPregunta(Pregunta pregunta){
+    public void addPregunta(Pregunta pregunta) {
         this.preguntas.add(pregunta);
         pregunta.setExamen(this);
     }
 
-    public void  removePregunta(Pregunta pregunta){
+    public void removePregunta(Pregunta pregunta) {
         this.preguntas.remove(pregunta);
         pregunta.setExamen(null);
     }
