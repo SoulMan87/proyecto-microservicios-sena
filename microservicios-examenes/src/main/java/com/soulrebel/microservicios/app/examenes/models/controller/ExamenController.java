@@ -35,4 +35,9 @@ public class ExamenController extends CommonController<Examen, ExamenService> {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(service.saveService(examenDb));
     }
+
+    @GetMapping("/filtrar/{term}")
+    public ResponseEntity<?> filtrar(@PathVariable String term) {
+        return ResponseEntity.ok(service.findByNombre(term));
+    }
 }
