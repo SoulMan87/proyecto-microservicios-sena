@@ -1,6 +1,7 @@
 package com.soulrebel.microservicios.commons.alumnos.models.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 
@@ -34,9 +36,17 @@ public class Alumno {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createAt;
 
+    @Lob
+    @JsonIgnore
+    private byte[] foto;
+
     @PrePersist
     public void prePersist() {
         this.createAt = new Date();
+    }
+
+    public Integer getFotoHashCode() {
+        return (this.foto != null) ? Arrays.hashCode(this.foto) : null;
     }
 
     @Override
@@ -53,6 +63,6 @@ public class Alumno {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nombre, apellido, email, createAt);
+        return Objects.hash(id, nombre, apellido, email, foto, createAt);
     }
 }
