@@ -15,6 +15,7 @@
         <module name="microservicios-commons-alumnos" />
         <module name="commons-microservicios" />
         <module name="microservicios-zuul" />
+        <module name="microservicios-respuestas" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -25,6 +26,7 @@
       <module name="microservicios-commons-alumnos" target="11" />
       <module name="microservicios-cursos" target="11" />
       <module name="microservicios-examenes" target="11" />
+      <module name="microservicios-respuestas" target="11" />
       <module name="microservicios-zuul" target="11" />
     </bytecodeTargetLevel>
   </component>
@@ -37,6 +39,7 @@
       <module name="microservicios-commons-alumnos" options="-parameters" />
       <module name="microservicios-cursos" options="-parameters" />
       <module name="microservicios-examenes" options="-parameters" />
+      <module name="microservicios-respuestas" options="-parameters" />
       <module name="microservicios-zuul" options="-parameters" />
     </option>
   </component>

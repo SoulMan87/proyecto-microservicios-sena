@@ -11,6 +11,7 @@
         <option value="$PROJECT_DIR$/microservicios-commons-alumnos/pom.xml" />
         <option value="$PROJECT_DIR$/microservicios-examenes/pom.xml" />
         <option value="$PROJECT_DIR$/commons-examenes/pom.xml" />
+        <option value="$PROJECT_DIR$/microservicios-respuestas/pom.xml" />
       </list>
     </option>
   </component>
