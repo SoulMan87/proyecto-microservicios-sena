@@ -4,7 +4,10 @@ package com.soulrebel.microservicios.app.alumnos.models.controller;
 import com.soulrebel.microservicios.commons.alumnos.models.entity.Alumno;
 import com.soulrebel.microservicios.app.alumnos.models.service.AlumnoService;
 import com.soulrebel.microservicios.commons.controllers.CommonController;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +19,19 @@ import java.util.Optional;
 
 @RestController
 public class AlumnoController extends CommonController<Alumno, AlumnoService> {
+
+    @GetMapping("/uploads/img/{id}")
+    public ResponseEntity<?>verFoto(@PathVariable Long id){
+        Optional<Alumno> optionalAlumno = service.findByIdService(id);
+        if (optionalAlumno.isEmpty() || optionalAlumno.get().getFoto() == null){
+            return ResponseEntity.notFound().build();
+        }
+        Resource imagen = new ByteArrayResource(optionalAlumno.get().getFoto());
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(imagen);
+    }
+
 
     public AlumnoController(AlumnoService service) {
         super(service);
