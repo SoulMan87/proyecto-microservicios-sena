@@ -2,6 +2,7 @@ package com.soulrebel.microservicios.commons.controllers;
 
 
 import com.soulrebel.microservicios.commons.services.CommonService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -23,6 +24,11 @@ public class CommonController<E, S extends CommonService<E>> {
     @GetMapping
     public ResponseEntity<?> listar() {
         return ResponseEntity.ok().body(service.findAllService());
+    }
+
+    @GetMapping("/pagina")
+    public ResponseEntity<?>paginar(Pageable pageable){
+        return ResponseEntity.ok().body(service.findAllPage(pageable));
     }
 
     @GetMapping("/{id}")
