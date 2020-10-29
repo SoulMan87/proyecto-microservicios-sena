@@ -5,5 +5,7 @@ import com.soulrebel.microservicios.commons.services.CommonService;
 
 public interface CursoService extends CommonService<Curso> {
 
-    public Curso findCursoByAlumnosId(Long id);
+    Curso findCursoByAlumnosId(Long id);
+
+    Iterable<Long> optenerExamenesIdsConRespuestasAlumno(Long alumnoId);
 }
