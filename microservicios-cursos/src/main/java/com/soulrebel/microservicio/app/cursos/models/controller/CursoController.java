@@ -5,13 +5,16 @@ import com.soulrebel.microservicio.app.cursos.models.services.CursoService;
 import com.soulrebel.microservicios.commons.alumnos.models.entity.Alumno;
 import com.soulrebel.microservicios.commons.controllers.CommonController;
 import com.soulrebel.microservicios.commons.examenes.models.entity.Examen;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -19,6 +22,17 @@ import java.util.stream.Collectors;
 public class CursoController extends CommonController<Curso, CursoService> {
     public CursoController(CursoService service) {
         super(service);
+    }
+
+    @Value("${config.balanceador.test}")
+    private String balanceadorTest;
+
+    @GetMapping("/balanceador-test")
+    public ResponseEntity<?> balanceadorTest() {
+        Map<String, Object> response = new HashMap<>();
+        response.put("balanceador", balanceadorTest);
+        response.put("cursos", service.findAllService());
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")

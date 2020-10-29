@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="microservicios-gateway" />
         <module name="microservicios-examenes" />
         <module name="commons-examenes" />
         <module name="microservicios-alumnos" />
@@ -26,6 +27,7 @@
       <module name="microservicios-commons-alumnos" target="11" />
       <module name="microservicios-cursos" target="11" />
       <module name="microservicios-examenes" target="11" />
+      <module name="microservicios-gateway" target="11" />
       <module name="microservicios-respuestas" target="11" />
       <module name="microservicios-zuul" target="11" />
     </bytecodeTargetLevel>
@@ -39,6 +41,7 @@
       <module name="microservicios-commons-alumnos" options="-parameters" />
       <module name="microservicios-cursos" options="-parameters" />
       <module name="microservicios-examenes" options="-parameters" />
+      <module name="microservicios-gateway" options="-parameters" />
       <module name="microservicios-respuestas" options="-parameters" />
       <module name="microservicios-zuul" options="-parameters" />
     </option>
