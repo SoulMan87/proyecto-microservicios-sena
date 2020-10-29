@@ -7,4 +7,6 @@ public interface RespuestaService {
     Iterable<Respuesta> saveAllResp(Iterable<Respuesta> respuestas);
 
     Iterable<Respuesta> findRespuestaByAlumnoByExamen(Long alumnoId, Long examenId);
+
+    Iterable<Long>findExamenesIdsRespuestaByAlumno(Long alumnoId);
 }

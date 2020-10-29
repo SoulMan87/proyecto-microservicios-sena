@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,5 +24,11 @@ public class RespuestaController {
     public ResponseEntity<?> optenerRespuestaPorAlumnoPorExamen(@PathVariable Long alumnoId,@PathVariable Long examenId){
        Iterable<Respuesta>respuestas = service.findRespuestaByAlumnoByExamen(alumnoId,examenId);
        return ResponseEntity.ok(respuestas);
+    }
+
+    @GetMapping("/alumno/{alumnoId}/examenes-respondidos")
+    public ResponseEntity<?> optenerExamenesIdsConRespuestasAlumnos(@PathVariable Long alumnoId){
+        Iterable<Long> examenesIds = service.findExamenesIdsRespuestaByAlumno(alumnoId);
+        return ResponseEntity.ok(examenesIds);
     }
 }
