@@ -5,9 +5,9 @@ import com.soulrebel.microservicios.app.respuestas.models.services.RespuestaServ
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,5 +19,11 @@ public class RespuestaController {
     public ResponseEntity<?> crear(@RequestBody Iterable<Respuesta> respuestas) {
         Iterable<Respuesta> respuestasList = service.saveAllResp(respuestas);
         return ResponseEntity.status(HttpStatus.CREATED).body(respuestasList);
+    }
+
+    @GetMapping("/alumno/{alumnoId}/examen/{examenId}")
+    public ResponseEntity<?> optenerRespuestaPorAlumnoPorExamen(@PathVariable Long alumnoId,@PathVariable Long examenId){
+       Iterable<Respuesta>respuestas = service.findRespuestaByAlumnoByExamen(alumnoId,examenId);
+       return ResponseEntity.ok(respuestas);
     }
 }
