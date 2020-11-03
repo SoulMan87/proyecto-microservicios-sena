@@ -1,8 +1,8 @@
 package com.soulrebel.microservicios.app.alumnos.models.controller;
 
 
-import com.soulrebel.microservicios.commons.alumnos.models.entity.Alumno;
 import com.soulrebel.microservicios.app.alumnos.models.service.AlumnoService;
+import com.soulrebel.microservicios.commons.alumnos.models.entity.Alumno;
 import com.soulrebel.microservicios.commons.controllers.CommonController;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
