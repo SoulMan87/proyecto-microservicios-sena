@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface ExamenRepository  extends PagingAndSortingRepository<Examen, Long> {
 
-    @Query("select e from e where  e.nombre like %?1%")
+    @Query("select e from Examen e where  e.nombre like %?1%")
     List<Examen> findByNombre(String term);
 }
