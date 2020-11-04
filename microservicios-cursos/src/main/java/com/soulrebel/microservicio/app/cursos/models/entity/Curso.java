@@ -1,5 +1,6 @@
 package com.soulrebel.microservicio.app.cursos.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.soulrebel.microservicios.commons.alumnos.models.entity.Alumno;
 import com.soulrebel.microservicios.commons.examenes.models.entity.Examen;
 import lombok.*;
@@ -26,12 +27,17 @@ public class Curso {
     @OneToMany(fetch = FetchType.LAZY)
     private List<Alumno> alumnos;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    //@ManyToMany(fetch = FetchType.LAZY)
+    @Transient
     private List<Examen> examenes;
 
     @Column(name = "create_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createAt;
+
+    @JsonIgnoreProperties(value = {"curso"}, allowSetters = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CursoAlumno> cursoAlumnos;
 
     @PrePersist
     public void prePersist() {
@@ -41,6 +47,7 @@ public class Curso {
     public Curso() {
         this.alumnos = new ArrayList<>();
         this.examenes = new ArrayList<>();
+        this.cursoAlumnos = new ArrayList<>();
     }
 
     public void addAlumno(Alumno alumno) {
@@ -59,4 +66,11 @@ public class Curso {
         this.examenes.remove(examen);
     }
 
+    public void addCursoAlumno(CursoAlumno cursoAlumno) {
+        this.cursoAlumnos.add(cursoAlumno);
+    }
+
+    public void removeCursoAlumno(CursoAlumno cursoAlumno) {
+        this.cursoAlumnos.remove(cursoAlumno);
+    }
 }
