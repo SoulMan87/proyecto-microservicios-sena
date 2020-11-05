@@ -1,6 +1,7 @@
 package com.soulrebel.microservicio.app.cursos.models.controller;
 
 import com.soulrebel.microservicio.app.cursos.models.entity.Curso;
+import com.soulrebel.microservicio.app.cursos.models.entity.CursoAlumno;
 import com.soulrebel.microservicio.app.cursos.models.services.CursoService;
 import com.soulrebel.microservicios.commons.alumnos.models.entity.Alumno;
 import com.soulrebel.microservicios.commons.controllers.CommonController;
@@ -57,7 +58,12 @@ public class CursoController extends CommonController<Curso, CursoService> {
             return ResponseEntity.notFound().build();
         }
         Curso cursoDb = optionalCurso.get();
-        alumnos.forEach(cursoDb::addAlumno);
+        alumnos.forEach(alumno -> {
+            CursoAlumno cursoAlumno = new CursoAlumno();
+            cursoAlumno.setAlumnoId(alumno.getId());
+            cursoAlumno.setCurso(cursoDb);
+            cursoDb.addCursoAlumno(cursoAlumno);
+        });
         return ResponseEntity.status(HttpStatus.CREATED).body(this.service.saveService(cursoDb));
     }
 
@@ -68,8 +74,9 @@ public class CursoController extends CommonController<Curso, CursoService> {
             return ResponseEntity.notFound().build();
         }
         Curso cursoDb = optionalCurso.get();
-
-        cursoDb.removeAlumno(alumno);
+        CursoAlumno cursoAlumno = new CursoAlumno();
+        cursoAlumno.setAlumnoId(alumno.getId());
+        cursoDb.removeCursoAlumno(cursoAlumno);
         return ResponseEntity.status(HttpStatus.CREATED).body(this.service.saveService(cursoDb));
     }
 

@@ -6,6 +6,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface CursoRepository extends PagingAndSortingRepository<Curso, Long> {
 
-    @Query("select c from Curso c join fetch c.alumnos a where a.id=?1")
+    @Query("select c from Curso c join fetch c.cursoAlumnos a where a.alumnoId=?1")
     public Curso findCursoByAlumnosId(Long id);
 }

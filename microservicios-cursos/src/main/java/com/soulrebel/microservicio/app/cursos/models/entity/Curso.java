@@ -24,11 +24,11 @@ public class Curso {
     @NotEmpty
     private String nombre;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    //@OneToMany(fetch = FetchType.LAZY)
+    @Transient
     private List<Alumno> alumnos;
 
-    //@ManyToMany(fetch = FetchType.LAZY)
-    @Transient
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Examen> examenes;
 
     @Column(name = "create_at")
