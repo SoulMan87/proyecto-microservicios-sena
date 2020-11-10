@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "cursos_alumnos")
@@ -25,5 +26,15 @@ public class CursoAlumno {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "curso_id")
     private Curso curso;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CursoAlumno)) return false;
+        CursoAlumno that = (CursoAlumno) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(alumnoId, that.alumnoId) &&
+                Objects.equals(curso, that.curso);
+    }
 
 }
