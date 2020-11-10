@@ -22,7 +22,7 @@ import java.util.Optional;
 public class AlumnoController extends CommonController<Alumno, AlumnoService> {
 
     @GetMapping("/alumnos-por-curso")
-    public ResponseEntity<?> obtenerAlumnosPorCursos(@RequestParam Iterable<Long> ids) {
+    public ResponseEntity<?> obtenerAlumnosPorCursos(@RequestParam List<Long> ids) {
         return ResponseEntity.ok(service.findAllById(ids));
     }
 

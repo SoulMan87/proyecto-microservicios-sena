@@ -7,6 +7,8 @@ import com.soulrebel.microservicios.commons.alumnos.models.entity.Alumno;
 import com.soulrebel.microservicios.commons.controllers.CommonController;
 import com.soulrebel.microservicios.commons.examenes.models.entity.Examen;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -37,6 +39,20 @@ public class CursoController extends CommonController<Curso, CursoService> {
                     alumno.setId(cursoAlumno.getId());
                     curso.addAlumno(alumno);
                 })).collect(Collectors.toList());
+        return ResponseEntity.ok().body(cursos);
+    }
+
+    @GetMapping("/pagina")
+    @Override
+    public ResponseEntity<?> paginar(Pageable pageable) {
+        Page<Curso> cursos = service.findAllPage(pageable).map(curso -> {
+            curso.getCursoAlumnos().forEach(cursoAlumno -> {
+                Alumno alumno = new Alumno();
+                alumno.setId(cursoAlumno.getAlumnoId());
+                curso.addAlumno(alumno);
+            });
+            return curso;
+        });
         return ResponseEntity.ok().body(cursos);
     }
 
