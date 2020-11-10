@@ -28,6 +28,18 @@ public class CursoController extends CommonController<Curso, CursoService> {
     @Value("${config.balanceador.test}")
     private String balanceadorTest;
 
+    @GetMapping
+    @Override
+    public ResponseEntity<?> listar() {
+        List<Curso> cursos = ((List<Curso>) service.findAllService()).stream()
+                .peek(curso -> curso.getCursoAlumnos().forEach(cursoAlumno -> {
+                    Alumno alumno = new Alumno();
+                    alumno.setId(cursoAlumno.getId());
+                    curso.addAlumno(alumno);
+                })).collect(Collectors.toList());
+        return ResponseEntity.ok().body(cursos);
+    }
+
     @GetMapping("/balanceador-test")
     public ResponseEntity<?> balanceadorTest() {
         Map<String, Object> response = new HashMap<>();
