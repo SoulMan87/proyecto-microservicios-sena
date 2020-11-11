@@ -1,6 +1,7 @@
 package com.soulrebel.microservicios.app.alumnos.models.repository;
 
 import com.soulrebel.microservicios.commons.alumnos.models.entity.Alumno;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 

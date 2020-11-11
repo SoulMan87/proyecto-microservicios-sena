@@ -7,6 +7,7 @@ import com.soulrebel.microservicio.app.cursos.models.repository.CursoRepository;
 import com.soulrebel.microservicios.commons.alumnos.models.entity.Alumno;
 import com.soulrebel.microservicios.commons.services.CommonServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CursoServiceImpl extends CommonServiceImpl<Curso, CursoRepository> implements CursoService {
@@ -32,5 +33,11 @@ public class CursoServiceImpl extends CommonServiceImpl<Curso, CursoRepository> 
     @Override
     public Iterable<Alumno> obtenerAlumnosPorCursos(Iterable<Long> ids) {
         return alumnoFeignClient.obtenerAlumnosPorCursos(ids);
+    }
+
+    @Override
+    @Transactional
+    public void eliminarCursoAlumnoPorId(Long id) {
+        repository.eliminarCursoAlumnoPorId(id);
     }
 }
