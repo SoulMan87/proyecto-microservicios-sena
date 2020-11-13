@@ -15,10 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -130,6 +127,7 @@ public class CursoController extends CommonController<Curso, CursoService> {
         CursoAlumno cursoAlumno = new CursoAlumno();
         cursoAlumno.setAlumnoId(alumno.getId());
         cursoDb.removeCursoAlumno(cursoAlumno);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(this.service.saveService(cursoDb));
     }
 
@@ -140,15 +138,14 @@ public class CursoController extends CommonController<Curso, CursoService> {
         if (curso != null) {
             List<Long> examenesId = (List<Long>) service.optenerExamenesIdsConRespuestasAlumno(id);
 
-            List<Examen> examenes = curso.getExamenes().stream().map(examen -> {
+            List<Examen> examenes = curso.getExamenes().stream().peek(examen -> {
                 if (examenesId.contains(examen.getId())) {
                     examen.setRespondido(true);
                 }
-                return examen;
             }).collect(Collectors.toList());
             curso.setExamenes(examenes);
         }
-        return ResponseEntity.ok(curso);
+        return ResponseEntity.ok(Objects.requireNonNull(curso));
     }
 
     @PutMapping("/{id}/asignar-examenes")

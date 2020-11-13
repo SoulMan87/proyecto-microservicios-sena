@@ -19,9 +19,12 @@ public class Respuesta {
 
     private String texto;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     private Pregunta pregunta;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @Transient
     private Alumno alumno;
+
+    @Column(name = "alumno_id")
+    private Long alumnoId;
 }
