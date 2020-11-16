@@ -19,9 +19,10 @@ public class RespuestaController {
 
     @PostMapping
     public ResponseEntity<?> crear(@RequestBody Iterable<Respuesta> respuestas) {
-        respuestas = ((List<Respuesta>)respuestas).stream().peek(respuesta -> respuesta.setAlumnoId(respuesta
-                .getAlumno().getId()))
-                .collect(Collectors.toList());
+        respuestas = ((List<Respuesta>)respuestas).stream().peek(respuesta -> {
+            respuesta.setAlumnoId(respuesta.getAlumno().getId());
+            respuesta.setPreguntaId(respuesta.getPregunta().getId());
+        }).collect(Collectors.toList());
         Iterable<Respuesta> respuestasList = service.saveAllResp(respuestas);
         return ResponseEntity.status(HttpStatus.CREATED).body(respuestasList);
     }
