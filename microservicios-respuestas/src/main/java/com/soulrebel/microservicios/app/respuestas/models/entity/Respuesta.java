@@ -5,7 +5,6 @@ import com.soulrebel.microservicios.commons.examenes.models.entity.Pregunta;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
@@ -19,10 +18,10 @@ public class Respuesta {
 
     private String texto;
 
-    @Transient
+    //@Transient
     private Pregunta pregunta;
 
-    @Transient
+    //@Transient
     private Alumno alumno;
 
     private Long alumnoId;
