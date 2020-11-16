@@ -43,4 +43,9 @@ public class RespuestaServiceImpl implements RespuestaService {
     public Iterable<Long> findExamenesIdsRespuestaByAlumno(Long alumnoId) {
         return null;
     }
+
+    @Override
+    public Iterable<Respuesta> findByAlumnoId(Long alumnoId) {
+        return repository.findByAlumnoId(alumnoId);
+    }
 }

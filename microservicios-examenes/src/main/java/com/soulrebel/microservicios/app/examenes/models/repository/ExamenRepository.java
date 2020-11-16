@@ -1,6 +1,5 @@
 package com.soulrebel.microservicios.app.examenes.models.repository;
 
-import com.soulrebel.microservicios.commons.examenes.models.entity.Asignatura;
 import com.soulrebel.microservicios.commons.examenes.models.entity.Examen;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -11,4 +10,7 @@ public interface ExamenRepository extends PagingAndSortingRepository<Examen, Lon
 
     @Query("select e from Examen e where  e.nombre like %?1%")
     List<Examen> findByNombre(String term);
+
+    @Query("select e.id from Pregunta p join p.examen e where p.id in ?1 group by e.id")
+    Iterable<Long> findExamenesIdsRespuestaByPreguntaIds(Iterable<Long> preguntaIds);
 }

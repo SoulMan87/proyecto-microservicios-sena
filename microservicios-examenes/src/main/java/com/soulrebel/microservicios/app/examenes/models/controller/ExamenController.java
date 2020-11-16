@@ -17,6 +17,11 @@ public class ExamenController extends CommonController<Examen, ExamenService> {
         super(service);
     }
 
+    @GetMapping("/respondidos-por-preguntas")
+    public ResponseEntity<?>obteberExamenesPorIdsPorIdRespondidas(@RequestParam Iterable<Long> preguntaIds){
+        return ResponseEntity.ok().body(service.findExamenesIdsRespuestaByPreguntaIds(preguntaIds));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<?> editar(@Valid @RequestBody Examen examen, BindingResult result, @PathVariable Long id) {
 
