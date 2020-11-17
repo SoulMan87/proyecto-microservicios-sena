@@ -23,6 +23,8 @@
     "@ng-bootstrap/ng-bootstrap": "^8.0.0",
     "bootstrap": "^4.5.3",
     "jquery": "^3.5.1",
+    "json": "^10.0.0",
+    "package": "^1.0.1",
     "popper.js": "^1.16.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
