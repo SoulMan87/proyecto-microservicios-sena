@@ -3,6 +3,6 @@ export class Alumno {
   nombre: string;
   apellido: string;
   email: string;
-  createdAt: string;
+  createAt: string;
   fotoHashcode: number;
 }

@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+//@CrossOrigin(origins = "http://localhost:4200", methods= {RequestMethod.GET,RequestMethod.POST,
+        //RequestMethod.PUT, RequestMethod.DELETE},allowedHeaders = "*")
 public class CommonController<E, S extends CommonService<E>> {
 
     protected final S service;
@@ -27,7 +29,7 @@ public class CommonController<E, S extends CommonService<E>> {
     }
 
     @GetMapping("/pagina")
-    public ResponseEntity<?>paginar(Pageable pageable){
+    public ResponseEntity<?> paginar(Pageable pageable) {
         return ResponseEntity.ok().body(service.findAllPage(pageable));
     }
 
@@ -42,7 +44,7 @@ public class CommonController<E, S extends CommonService<E>> {
 
     @PostMapping
     public ResponseEntity<?> crear(@Valid @RequestBody E entity, BindingResult result) {
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             return this.validar(result);
         }
         E entityDb = service.saveService(entity);
@@ -58,7 +60,7 @@ public class CommonController<E, S extends CommonService<E>> {
     protected ResponseEntity<?> validar(BindingResult result) {
         Map<String, Object> errores = new HashMap<>();
         result.getFieldErrors().forEach(err -> {
-            errores.put(err.getField(), "El campo" + err.getField() + " " + err.getDefaultMessage());
+            errores.put(err.getField(), "El campo " + err.getField() + " " + err.getDefaultMessage());
         });
         return ResponseEntity.badRequest().body(errores);
     }
