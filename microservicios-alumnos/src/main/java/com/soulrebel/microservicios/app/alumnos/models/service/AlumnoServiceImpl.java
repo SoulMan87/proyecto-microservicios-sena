@@ -4,6 +4,8 @@ import com.soulrebel.microservicios.app.alumnos.client.CursoFeignClient;
 import com.soulrebel.microservicios.app.alumnos.models.repository.AlumnoRepository;
 import com.soulrebel.microservicios.commons.alumnos.models.entity.Alumno;
 import com.soulrebel.microservicios.commons.services.CommonServiceImpl;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +43,18 @@ public class AlumnoServiceImpl extends CommonServiceImpl<Alumno, AlumnoRepositor
     public void deleteService(Long id) {
         super.deleteService(id);
         this.eliminarCursoAlumnoPorId(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Iterable<Alumno> findAllService() {
+        return repository.findAllByOrderByIdAsc();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Alumno> findAllPage(Pageable pageable) {
+        return repository.findAllByOrderByIdAsc(pageable);
     }
 }
 

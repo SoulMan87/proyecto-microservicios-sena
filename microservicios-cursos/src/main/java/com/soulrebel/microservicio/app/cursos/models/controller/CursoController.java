@@ -23,7 +23,6 @@ public class CursoController extends CommonController<Curso, CursoService> {
     public CursoController(CursoService service) {
         super(service);
     }
-
     @Value("${config.balanceador.test}")
     private String balanceadorTest;
 

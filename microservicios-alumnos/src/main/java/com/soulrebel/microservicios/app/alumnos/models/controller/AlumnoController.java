@@ -20,6 +20,9 @@ import java.util.Optional;
 
 @RestController
 public class AlumnoController extends CommonController<Alumno, AlumnoService> {
+    public AlumnoController(AlumnoService service) {
+        super(service);
+    }
 
     @GetMapping("/alumnos-por-curso")
     public ResponseEntity<?> obtenerAlumnosPorCursos(@RequestParam List<Long> ids) {
@@ -38,10 +41,6 @@ public class AlumnoController extends CommonController<Alumno, AlumnoService> {
                 .body(imagen);
     }
 
-
-    public AlumnoController(AlumnoService service) {
-        super(service);
-    }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> editarAlumnos(@Valid @RequestBody Alumno alumno, BindingResult result, @PathVariable Long id) {
@@ -96,6 +95,12 @@ public class AlumnoController extends CommonController<Alumno, AlumnoService> {
         }
 
         return ResponseEntity.status(HttpStatus.CREATED).body(service.saveService(alumnoDb));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> eliminar(@PathVariable Long id) {
+        service.deleteService(id);
+        return ResponseEntity.noContent().build();
     }
 }
 

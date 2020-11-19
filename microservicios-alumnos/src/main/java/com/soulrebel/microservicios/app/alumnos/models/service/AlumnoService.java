@@ -9,11 +9,11 @@ import java.util.List;
 
 public interface AlumnoService extends CommonService<Alumno> {
 
-    public List<Alumno> findByNombreOrApellido(String term);
+    List<Alumno> findByNombreOrApellido(String term);
 
-    public Iterable<Alumno> findAllById(Iterable<Long> ids);
+    Iterable<Alumno> findAllById(Iterable<Long> ids);
 
-    public void eliminarCursoAlumnoPorId(@PathVariable Long id);
+    void eliminarCursoAlumnoPorId(@PathVariable Long id);
 
 }
 

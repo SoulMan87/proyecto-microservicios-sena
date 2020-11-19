@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface AlumnoFeignClient {
 
     @GetMapping("/alumnos-por-curso")
-    public Iterable<Alumno> obtenerAlumnosPorCursos(@RequestParam Iterable<Long> ids);
+    Iterable<Alumno> obtenerAlumnosPorCursos(@RequestParam Iterable<Long> ids);
 }

@@ -19,4 +19,12 @@ export class AlumnosComponent implements OnInit {
     this.service.listar().subscribe(alumnos => this.alumnos = alumnos);
   }
 
+  public eliminar(alumno: Alumno): void {
+    if (confirm(`¿Está seguro de eliminar a ${alumno.nombre} ?`)) {
+      this.service.eliminar(alumno.id).subscribe(() => {
+        this.alumnos = this.alumnos.filter(alumnoFilter => alumnoFilter !== alumno);
+        alert(`Alumno ${alumno.nombre} eliminado exitosamente`);
+      });
+    }
+  }
 }
