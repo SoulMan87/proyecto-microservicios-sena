@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import Swal from 'sweetalert2';
 import {Alumno} from '../../models/alumno';
 import {AlumnoService} from '../../services/alumno.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -31,7 +32,8 @@ export class AlumnosFormComponent implements OnInit {
   public crear(): void {
     this.service.crear(this.alumno).subscribe(alumno => {
       console.log(alumno);
-      alert(`Alumno ${alumno.nombre} creado con exito `);
+      Swal.fire('Nuevo: ', `Alumno ${alumno.nombre} creado con exito `, 'success')
+        .then(r => window.location.reload());
       const promise = this.router.navigate(['/alumnos']);
     }, err => {
       if (err.status === 400) {
@@ -44,7 +46,8 @@ export class AlumnosFormComponent implements OnInit {
   public editar(): void {
     this.service.editar(this.alumno).subscribe(alumno => {
       console.log(alumno);
-      alert(`Alumno ${alumno.nombre} actualizado con exito `);
+      Swal.fire('Modificado: ', `Alumno ${alumno.nombre} actualizado con exito `, 'success')
+        .then(r => window.location.reload());
       const promise = this.router.navigate(['/alumnos']);
     }, err => {
       if (err.status === 400) {
