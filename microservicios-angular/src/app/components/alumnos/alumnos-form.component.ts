@@ -1,59 +1,70 @@
 import {Component, OnInit} from '@angular/core';
-import Swal from 'sweetalert2';
 import {Alumno} from '../../models/alumno';
 import {AlumnoService} from '../../services/alumno.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {CommonFormComponent} from '../common-form.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-alumnos-form',
   templateUrl: './alumnos-form.component.html',
   styleUrls: ['./alumnos-form.component.css']
 })
-export class AlumnosFormComponent implements OnInit {
+export class AlumnosFormComponent extends CommonFormComponent<Alumno, AlumnoService> implements OnInit {
 
-  titulo = 'Crear Alumnos';
-  alumno: Alumno = new Alumno();
-  error: any;
+  private fotoSelecionada: File;
 
-  constructor(private service: AlumnoService,
-              private router: Router,
-              private route: ActivatedRoute) {
+  constructor(service: AlumnoService,
+              router: Router,
+              route: ActivatedRoute) {
+    super(service, router, route);
+    this.titulo = 'Crear Alumnos';
+    this.model = new Alumno();
+    this.redirect = '/alumnos';
+    this.nombreModel = Alumno.name;
   }
 
-  ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      const id: number = +params.get('id');
-      if (id) {
-        this.service.ver(id).subscribe(alumno => this.alumno = alumno);
-      }
-    });
+  seleccionarFoto(event): void {
+    this.fotoSelecionada = event.target.files[0];
+    // tslint:disable-next-line:no-console
+    console.info(this.fotoSelecionada);
   }
 
   public crear(): void {
-    this.service.crear(this.alumno).subscribe(alumno => {
-      console.log(alumno);
-      Swal.fire('Nuevo: ', `Alumno ${alumno.nombre} creado con exito `, 'success')
-        .then(r => window.location.reload());
-      const promise = this.router.navigate(['/alumnos']);
-    }, err => {
-      if (err.status === 400) {
-        this.error = err.error;
-        console.log('Error: ' + `${this.error}`);
-      }
-    });
+    if (!this.fotoSelecionada) {
+      super.crear();
+    } else {
+      this.service.crearConFoto(this.model, this.fotoSelecionada)
+        .subscribe(alumno => {
+          console.log(alumno);
+          Swal.fire('Nuevo: ', `${this.nombreModel} ${alumno.nombre} creado con éxito`, 'success')
+            .then(r => window.location.reload());
+          this.router.navigate([this.redirect]);
+        }, err => {
+          if (err.status === 400) {
+            this.error = err.error;
+            console.log(this.error);
+          }
+        });
+    }
   }
 
   public editar(): void {
-    this.service.editar(this.alumno).subscribe(alumno => {
-      console.log(alumno);
-      Swal.fire('Modificado: ', `Alumno ${alumno.nombre} actualizado con exito `, 'success')
-        .then(r => window.location.reload());
-      const promise = this.router.navigate(['/alumnos']);
-    }, err => {
-      if (err.status === 400) {
-        this.error = err.error;
-        console.log('Error: ' + `${this.error}`);
-      }
-    });
+    if (!this.fotoSelecionada) {
+      super.editar();
+    } else {
+      this.service.editarConFoto(this.model, this.fotoSelecionada)
+        .subscribe(alumno => {
+          console.log(alumno);
+          Swal.fire('Modificado: ', `${this.nombreModel} ${alumno.nombre} actualizado con éxito`, 'success')
+            .then(r => window.location.reload());
+          this.router.navigate([this.redirect]).then(r => window.location.reload());
+        }, err => {
+          if (err.status === 400) {
+            this.error = err.error;
+            console.log(this.error);
+          }
+        });
+    }
   }
 }
