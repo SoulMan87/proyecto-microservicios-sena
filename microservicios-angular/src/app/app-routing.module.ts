@@ -5,6 +5,7 @@ import {CursosComponent} from './components/cursos/cursos.component';
 import {ExamenesComponent} from './components/examenes/examenes.component';
 import {AlumnosFormComponent} from './components/alumnos/alumnos-form.component';
 import {CursoFormComponent} from './components/cursos/curso-form.component';
+import {ExamenFormComponent} from './components/examenes/examen-form.component';
 
 let routes: Routes;
 routes = [
@@ -15,11 +16,13 @@ routes = [
   {path: 'cursos', component: CursosComponent},
   {path: 'cursos/form', component: CursoFormComponent},
   {path: 'cursos/form/:id', component: CursoFormComponent},
-  {path: 'examenes', component: ExamenesComponent}
+  {path: 'examenes', component: ExamenesComponent},
+  {path: 'examenes/form', component: ExamenFormComponent},
+  {path: 'examenes/form/:id', component: ExamenFormComponent}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+  imports: [RouterModule.forRoot(routes, {relativeLinkResolution: 'legacy'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
 import {CommonService} from './common.service';
 import {Examen} from '../models/examen';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Asignatura} from '../models/asignatura';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +11,15 @@ import {Examen} from '../models/examen';
 export class ExamenService extends CommonService<Examen> {
 
   protected baseEndpoint = '/api/examenes';
+
+  constructor(http: HttpClient) {
+    super(http);
+  }
+
+  public findAllAsignaturas(): Observable<Asignatura[]> {
+    return this.http.get<Asignatura[]>(`${this.baseEndpoint}/asignaturas`);
+  }
+
 
 }
 
