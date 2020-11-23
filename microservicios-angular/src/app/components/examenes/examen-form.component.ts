@@ -12,8 +12,9 @@ import {Asignatura} from '../../models/asignatura';
 })
 export class ExamenFormComponent extends CommonFormComponent<Examen, ExamenService> implements OnInit {
 
-  asignarutasPadre: Asignatura[] = [];
-  asignarutasHija: Asignatura[] = [];
+  asignaturasPadre: Asignatura[] = [];
+  asignaturasHija: Asignatura[] = [];
+
 
   constructor(service: ExamenService,
               router: Router,
@@ -32,13 +33,30 @@ export class ExamenFormComponent extends CommonFormComponent<Examen, ExamenServi
         this.service.ver(id).subscribe(m => {
           this.model = m;
           this.titulo = 'Editar ' + this.nombreModel;
+          /* this.service.findAllAsignaturas().subscribe(asignaturas =>
+             this.asignaturasHija = asignaturas
+               .filter(a => a.padre && a.padre.id === this.model.asignaturaPadre.id));
+               */
+          this.cargarHijos();
         });
       }
     });
     this.service.findAllAsignaturas()
       .subscribe(asignaturas =>
-        this.asignarutasPadre = asignaturas.filter(a => !a.padre));
+        this.asignaturasPadre = asignaturas.filter(a => !a.padre));
   }
 
 
+  cargarHijos(): void {
+    this.asignaturasHija = this.model.asignaturaPadre ?
+      this.model.asignaturaPadre.hijos : [];
+  }
+
+  compararAsignatura(a1: Asignatura, a2: Asignatura): boolean {
+    if (a1 === undefined && a2 === undefined) {
+      return true;
+    }
+    return (a1 === null || a2 === null || a1 === undefined || a2 === undefined)
+      ? false : a1.id === a2.id;
+  }
 }
