@@ -20,6 +20,9 @@ import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatButtonModule} from '@angular/material/button';
 import {AsignarAlumnosComponent} from './components/cursos/asignar-alumnos.component';
+import {MatCardModule} from '@angular/material/card';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatAutocomplete} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,10 @@ import {AsignarAlumnosComponent} from './components/cursos/asignar-alumnos.compo
     MatCheckboxModule,
     MatInputModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCardModule,
+    MatTabsModule,
+    MatAutocomplete
   ],
   providers: [],
   bootstrap: [AppComponent]
