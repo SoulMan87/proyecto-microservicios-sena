@@ -17,7 +17,7 @@
         <label for="asignaturaPadre">Asignatura</label>
         <select (change)="cargarHijos()"
                 [compareWith]="compararAsignatura"
-          [(ngModel)]="model.asignaturaPadre" class="form-control"
+                [(ngModel)]="model.asignaturaPadre" class="form-control"
                 name="asignaturaPadre" id="asignaturaPadre">
           <option [ngValue]="undefined">---Seleccionar una asignatura----</option>
           <option *ngFor="let asignatura of asignaturasPadre"
@@ -31,7 +31,7 @@
       <div class="form-group">
         <label for="asignaturaHija">Asignatura Hija</label>
         <select [compareWith]="compararAsignatura"
-          [(ngModel)]="model.asignaturaHija" class="form-control"
+                [(ngModel)]="model.asignaturaHija" class="form-control"
                 name="asignaturaHija" id="asignaturaHija">
           <option [ngValue]="undefined">---Seleccionar una asignatura----</option>
           <option *ngFor="let asignaruta of asignaturasHija"
@@ -42,7 +42,29 @@
           {{ error.asignaturaHija }}
         </div>
       </div>
+      <button (click)="agregarPregunta()" class="btn btn-light btn-lg my-3">Agregar Pregunta
+      </button>
       <div class="form-group">
+
+        <div class="form-group" *ngFor="let pregunta of model.preguntas; let i = index">
+          <div class="row">
+            <div class="col-sm-2">
+              <label> Pregunta {{i + 1}}: </label>
+            </div>
+            <div class="col-sm-6">
+              <input type="text" value="{{pregunta.texto}}" class="form-control"
+                     (change)="asignarTexto(pregunta, $event)">
+            </div>
+            <div class="col-sm-1">
+              <button class="btn btn-danger btn-sm"
+                      (click)="eliminarPregunta(pregunta)">x
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="alert alert-danger" *ngIf="errorPregunta">
+          {{ errorPregunta}}
+        </div>
         <button type="button" class="btn btn-primary"
                 (click)="model.id? editar(): crear()">
           {{ model.id ? 'Editar' : 'Crear' }}
