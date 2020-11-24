@@ -10,7 +10,7 @@ import {ExamenesComponent} from './components/examenes/examenes.component';
 import {LayaoutModule} from './layaout/layaout.module';
 import {HttpClientModule} from '@angular/common/http';
 import {AlumnosFormComponent} from './components/alumnos/alumnos-form.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {CursoFormComponent} from './components/cursos/curso-form.component';
@@ -19,7 +19,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatButtonModule} from '@angular/material/button';
-import { AsignarAlumnosComponent } from './components/cursos/asignar-alumnos.component';
+import {AsignarAlumnosComponent} from './components/cursos/asignar-alumnos.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +44,8 @@ import { AsignarAlumnosComponent } from './components/cursos/asignar-alumnos.com
     MatTableModule,
     MatCheckboxModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
