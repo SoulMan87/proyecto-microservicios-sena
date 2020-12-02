@@ -162,7 +162,7 @@ public class CursoController extends CommonController<Curso, CursoService> {
     @PutMapping("/{id}/eliminar-examen")
     public ResponseEntity<?> eliminarExamen(@RequestBody Examen examenes, @PathVariable Long id) {
         Optional<Curso> optionalCursoExamenes = this.service.findByIdService(id);
-        if (optionalCursoExamenes.isEmpty()) {
+        if (!optionalCursoExamenes.isPresent()) {
             return ResponseEntity.notFound().build();
         }
         Curso cursoDb = optionalCursoExamenes.get();
