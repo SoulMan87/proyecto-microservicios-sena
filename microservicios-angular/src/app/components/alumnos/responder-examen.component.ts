@@ -9,9 +9,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import {ResponderExamenModalComponent} from './responder-examen-modal.component';
-import { RespuestaService } from "src/app/services/respuesta.service";
+import { RespuestaService } from 'src/app/services/respuesta.service';
 import { Respuesta } from 'src/app/models/respuesta';
 import Swal from 'sweetalert2';
+import { VerExamenModalComponent } from './ver-examen-modal.component';
 
 @Component({
   selector: 'app-responder-examen',
@@ -68,7 +69,7 @@ export class ResponderExamenComponent implements OnInit {
       if(respuestasMap){
         const respuestas: Respuesta[] = Array.from(respuestasMap.values());
         this.respuestaService.crear(respuestas).subscribe(rs =>{
-          examen.respondido = true;
+          examen.responsido = true;
           Swal.fire(
             'Enviadas:',
             'Preguntas enviadas con éxito',
@@ -78,6 +79,20 @@ export class ResponderExamenComponent implements OnInit {
         });
       }
     });
+  }
+
+  verExamen(examen: Examen): void {
+    this.respuestaService.obtenerRespuestasPorAlumnoPorExamen(this.alumno, examen)
+      .subscribe(rs => {
+        const modalRef = this.dialog.open(VerExamenModalComponent, {
+          width: '750px',
+          data: {curso: this.curso, examen: examen, respuestas: rs}
+        });
+
+        modalRef.afterClosed().subscribe(() => {
+          console.log('Modal ver examen cerrado');
+        })
+      });
   }
 
 }

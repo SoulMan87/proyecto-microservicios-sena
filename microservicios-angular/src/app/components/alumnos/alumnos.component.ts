@@ -11,6 +11,7 @@ import {CommonListarComponent} from '../common-listar.component';
 })
 export class AlumnosComponent
   extends CommonListarComponent<Alumno, AlumnoService> implements OnInit {
+  // baseEndpoint = 'http://localhost:8090/api';
 
 
   constructor(service: AlumnoService) {
