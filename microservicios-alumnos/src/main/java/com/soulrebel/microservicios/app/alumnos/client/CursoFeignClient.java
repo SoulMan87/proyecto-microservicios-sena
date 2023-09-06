@@ -2,7 +2,6 @@ package com.soulrebel.microservicios.app.alumnos.client;
 
 
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -10,5 +9,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface CursoFeignClient {
 
     @DeleteMapping("/eliminar-alumno/{id}")
-    public void eliminarCursoAlumnoPorId(@PathVariable Long id);
+     void eliminarCursoAlumnoPorId(@PathVariable Long id);
 }

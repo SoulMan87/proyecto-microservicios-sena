@@ -6,15 +6,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-//@CrossOrigin(origins = "http://localhost:4200", methods= {RequestMethod.GET,RequestMethod.POST,
-        //RequestMethod.PUT, RequestMethod.DELETE},allowedHeaders = "*")
 public class CommonController<E, S extends CommonService<E>> {
 
     protected final S service;
@@ -59,9 +61,8 @@ public class CommonController<E, S extends CommonService<E>> {
 
     protected ResponseEntity<?> validar(BindingResult result) {
         Map<String, Object> errores = new HashMap<>();
-        result.getFieldErrors().forEach(err -> {
-            errores.put(err.getField(), "El campo " + err.getField() + " " + err.getDefaultMessage());
-        });
+        result.getFieldErrors ().forEach (err -> errores.put (err.getField (),
+                "El campo " + err.getField () + " " + err.getDefaultMessage ()));
         return ResponseEntity.badRequest().body(errores);
     }
 }

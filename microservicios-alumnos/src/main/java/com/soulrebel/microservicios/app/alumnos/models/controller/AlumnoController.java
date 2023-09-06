@@ -10,7 +10,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
@@ -21,7 +28,7 @@ import java.util.Optional;
 @RestController
 public class AlumnoController extends CommonController<Alumno, AlumnoService> {
     public AlumnoController(AlumnoService service) {
-        super(service);
+        super (service);
     }
 
     @GetMapping("/alumnos-por-curso")
@@ -52,10 +59,7 @@ public class AlumnoController extends CommonController<Alumno, AlumnoService> {
         if (optionalAlumno.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        Alumno alumnoDb = optionalAlumno.get();
-        alumnoDb.setNombre(alumno.getNombre());
-        alumnoDb.setApellido(alumno.getApellido());
-        alumnoDb.setEmail(alumno.getEmail());
+        Alumno alumnoDb = buildAlumno (alumno);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(service.saveService(alumnoDb));
     }
@@ -85,10 +89,7 @@ public class AlumnoController extends CommonController<Alumno, AlumnoService> {
         if (optionalAlumno.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        Alumno alumnoDb = optionalAlumno.get();
-        alumnoDb.setNombre(alumno.getNombre());
-        alumnoDb.setApellido(alumno.getApellido());
-        alumnoDb.setEmail(alumno.getEmail());
+        Alumno alumnoDb = buildAlumno (alumno);
 
         if (!archivo.isEmpty()) {
             alumnoDb.setFoto(archivo.getBytes());
@@ -98,9 +99,18 @@ public class AlumnoController extends CommonController<Alumno, AlumnoService> {
     }
 
     @DeleteMapping("/{id}")
+    @Override
     public ResponseEntity<?> eliminar(@PathVariable Long id) {
         service.deleteService(id);
         return ResponseEntity.noContent().build();
+    }
+
+    private Alumno buildAlumno(Alumno alumno) {
+        return Alumno.builder ()
+                .nombre (alumno.getNombre ())
+                .apellido (alumno.getApellido ())
+                .email (alumno.getEmail ())
+                .build ();
     }
 }
 

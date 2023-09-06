@@ -12,10 +12,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -136,7 +145,7 @@ public class CursoController extends CommonController<Curso, CursoService> {
 
         if (curso != null) {
             List<Long> examenesIds = (List<Long>) service.optenerExamenesIdsConRespuestasAlumno(id);
-            if (examenesIds != null && examenesIds.size() > 0) {
+            if (examenesIds != null && !examenesIds.isEmpty ()) {
                 List<Examen> examenes = curso.getExamenes().stream().peek(examen -> {
                     if (examenesIds.contains(examen.getId())) {
                         examen.setRespondido(true);

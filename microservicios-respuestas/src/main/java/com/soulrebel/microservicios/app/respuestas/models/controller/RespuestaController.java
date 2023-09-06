@@ -5,10 +5,14 @@ import com.soulrebel.microservicios.app.respuestas.models.services.RespuestaServ
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 
 @RestController
@@ -19,16 +23,13 @@ public class RespuestaController {
 
     @PostMapping
     public ResponseEntity<?> crear(@RequestBody Iterable<Respuesta> respuestas) {
-        respuestas = ((List<Respuesta>)respuestas).stream().peek(respuesta -> {
-            respuesta.setAlumnoId(respuesta.getAlumno().getId());
-            respuesta.setPreguntaId(respuesta.getPregunta().getId());
-        }).collect(Collectors.toList());
-        Iterable<Respuesta> respuestasList = service.saveAllResp(respuestas);
+        Iterable<Respuesta> respuestasList = service.saveAllResp (getRespuestas (respuestas));
         return ResponseEntity.status(HttpStatus.CREATED).body(respuestasList);
     }
 
     @GetMapping("/alumno/{alumnoId}/examen/{examenId}")
-    public ResponseEntity<?> optenerRespuestaPorAlumnoPorExamen(@PathVariable Long alumnoId,@PathVariable Long examenId){
+    public ResponseEntity<?> optenerRespuestaPorAlumnoPorExamen(@PathVariable Long alumnoId,
+                                                                @PathVariable Long examenId){
        Iterable<Respuesta>respuestas = service.findRespuestaByAlumnoByExamen(alumnoId,examenId);
        return ResponseEntity.ok(respuestas);
     }
@@ -37,5 +38,14 @@ public class RespuestaController {
     public ResponseEntity<?> optenerExamenesIdsConRespuestasAlumnos(@PathVariable Long alumnoId){
         Iterable<Long> examenesIds = service.findExamenesIdsRespuestaByAlumno(alumnoId);
         return ResponseEntity.ok(examenesIds);
+    }
+
+    private Iterable<Respuesta> getRespuestas(Iterable<Respuesta> respuestas) {
+        return StreamSupport.stream (respuestas.spliterator (), false)
+                .map (respuesta -> Respuesta.builder ()
+                        .alumnoId (respuesta.getAlumno ().getId ())
+                        .preguntaId (respuesta.getPregunta ().getId ())
+                        .build ())
+                .collect (Collectors.toList ());
     }
 }
